@@ -67,7 +67,7 @@ const Login = () => {
 
                 {state.error && <p className="text-danger">{state.error}</p>}
 
-                <button className="w-100 bg-theme text-white px-8 rounded-0 py-3 my-2 fw-semibold" type="submit">Sign in
+                <button className="w-100 bg-theme text-white px-5 border-0 rounded-0 py-3 my-2 fw-semibold" type="submit">Sign in
                 </button>
                 <small className='fw-semibold text-muted mt-3'>New here?
                     <Link to='/register'> Register now</Link>

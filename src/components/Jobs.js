@@ -1,16 +1,15 @@
 import {addApplied, addFavourite, deleteApplied, deleteFavourite, deleteJob, editJob} from "../redux/jobsSlice"
 import {Link} from "react-router-dom"
-import React, {useContext, useEffect} from "react"
+import React from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {FiBookmark, FiEdit, FiTrash} from "react-icons/fi"
 import './Jobs.css'
 import JobModal from "./JobModal"
-import {ModalContext} from "../context/ModalContext"
 import {isJobSeeker, isLoggedIn, isRecruiter} from "../services/auth";
 
 const Jobs = ({filteredJobs}) => {
     const dispatch = useDispatch()
-    const {setShow} = useContext(ModalContext)
+    // const {setShow} = useContext(ModalContext)
 
     const favs = useSelector(state => state.favouriteJobs)
 
@@ -18,7 +17,7 @@ const Jobs = ({filteredJobs}) => {
         if (isLoggedIn() && isJobSeeker()) {
             dispatch(addApplied({id: job.id, job}))
         } else {
-            alert('You do not the right access to do this.')
+            alert('You do not have the right access to do this.')
         }
     }
 
@@ -26,7 +25,7 @@ const Jobs = ({filteredJobs}) => {
         if (isLoggedIn() && isRecruiter()) {
             dispatch(editJob(job))
         } else {
-            alert('You do not the right access to do this.')
+            alert('You do not have the right access to do this.')
         }
     }
 
@@ -49,7 +48,8 @@ const Jobs = ({filteredJobs}) => {
                             <div className="card shadow-sm border-0 cardWidth">
                                 <div className="card-body d-flex flex-column flex-row">
                                     <div className="d-flex flex-row-reverse">
-                                        {isRecruiter() ?
+                                        {isRecruiter() &&
+                                        <>
                                             <span
                                                 role="button"
                                                 onClick={() => {
@@ -59,13 +59,13 @@ const Jobs = ({filteredJobs}) => {
                                                 }
                                                 className="m-1"><FiTrash/>
                                             </span>
-                                            : <div></div>}
-                                        {isRecruiter() ?
+
                                             <span
                                                 role="button"
                                                 onClick={() => onEditJob(job)}
                                                 className="m-1 cursor-pointer"><FiEdit/>
-                                        </span> : <div></div>
+                                        </span>
+                                        </>
                                         }
 
                                         {isLoggedIn() &&
@@ -79,7 +79,7 @@ const Jobs = ({filteredJobs}) => {
                                                     className='m-1 cursor-pointer'>
                                             <FiBookmark/>
                                             </span>
-                                                : (isFav(job) === false && isJobSeeker()) &&
+                                                : (isFav(job) === true && isJobSeeker()) &&
                                                 <span
                                                     role="button"
                                                     onClick={() => {

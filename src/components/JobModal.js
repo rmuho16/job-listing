@@ -18,6 +18,7 @@ const JobModal = () => {
         location: "",
     })
 
+
     useEffect(() => {
         if (jobEdit.edit === true) {
             state.company = jobEdit.item.company.display_name
