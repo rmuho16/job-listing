@@ -15,7 +15,6 @@ import {
     getFirestore,
     updateDoc,
     getDocs,
-    getDoc,
     deleteDoc
 } from 'firebase/firestore'
 
@@ -70,7 +69,14 @@ export async function crateJobListing(listing) {
 }
 
 export async function editJobListing(listing) {
-    await updateDoc(collection(db, 'jobListings'), listing)
+
+    const q = query(collection(db,'jobListings'), where("id", "==", listing.id));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((foundDoc) => {
+        const ref = doc(db, 'jobListings', foundDoc.id);
+        updateDoc(ref,listing).then(()=>{});
+    });
 }
 
 export async function deleteJobListing(deleteId) {
