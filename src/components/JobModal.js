@@ -55,7 +55,7 @@ const JobModal = () => {
                     title: newJob.title,
                     company: newJob.company,
                     description: newJob.description,
-                    label: newJob.label,
+                    category: newJob.category,
                     location: newJob.location
                 }
             ))
@@ -119,9 +119,9 @@ const JobModal = () => {
                                       rows="4"/>
                         </div>
                         {showError &&
-                            <p className='text-danger text-center'>Please fill in all inputs</p>}
+                        <p className='text-danger text-center'>Please fill in all inputs</p>}
                         <div className='d-flex justify-content-evenly'>
-                            <button type='submit' className='w-auto text-white bg-theme px-8 py-2 fw-semibold rounded-0'
+                            <button type='submit' className='w-auto text-white bg-theme px-5 border-0 py-2 fw-semibold rounded-0'
                                     onClick={handleSubmit}>Submit
                             </button>
                         </div>
