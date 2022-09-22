@@ -31,8 +31,8 @@ const Jobs = ({filteredJobs}) => {
     }
 
     const isFav = (job) => {
-        for(let i in favs) {
-            if(String(favs[i].id) === String(job.id)) {
+        for (let i in favs) {
+            if (String(favs[i].id) === String(job.id)) {
                 return true
             }
         }
@@ -68,29 +68,31 @@ const Jobs = ({filteredJobs}) => {
                                         </span> : <div></div>
                                         }
 
-                                        {isLoggedIn() ?
+                                        {isLoggedIn() &&
 
-                                            (isFav(job) === false ?
-                                                    <span
-                                                        role="button"
-                                                        onClick={() => {
-                                                            dispatch(addFavourite({id: job.id, job}))
-                                                        }}
-                                                        className='m-1 cursor-pointer'>
+                                        ((isFav(job) === false && isJobSeeker()) ?
+                                                <span
+                                                    role="button"
+                                                    onClick={() => {
+                                                        dispatch(addFavourite({id: job.id, job}))
+                                                    }}
+                                                    className='m-1 cursor-pointer'>
                                             <FiBookmark/>
                                             </span>
-                                                    :
-                                                    <span
-                                                        role="button"
-                                                        onClick={() => {
-                                                            dispatch(deleteFavourite({id: job.id}))
-                                                        }}
-                                                        className='m-1 cursor-pointer text-warning'>
+                                                : (isFav(job) === false && isJobSeeker()) &&
+                                                <span
+                                                    role="button"
+                                                    onClick={() => {
+                                                        dispatch(deleteFavourite({id: job.id}))
+                                                    }}
+                                                    className='m-1 cursor-pointer text-warning'>
                                             <FiBookmark/>
                                             </span>
-                                            ) : <div></div>}
+                                        )
+                                        }
 
-                                        {isJobSeeker() ? (job.applied === false ?
+                                        {isJobSeeker() &&
+                                        (job.applied === false ?
                                             <span
                                                 role="button"
                                                 onClick={() => applyForJob(job)}
@@ -105,7 +107,7 @@ const Jobs = ({filteredJobs}) => {
                                                 }}
                                                 className='m-1 fw-semibold color-theme'>
                                                 <p>Remove application</p>
-                                            </span>) : <div></div>
+                                            </span>)
                                         }
                                     </div>
                                     <h5 className="title color-theme">
