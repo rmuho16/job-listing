@@ -42,17 +42,17 @@ export const jobsSlice = createSlice({
         updateJob: (state, action) => {
             state.jobs.map(job => {
                 if (job.id === action.payload.id) {
-                    job.company.display_name = action.payload.company
-                    job.location.display_name = action.payload.location
+                    job.company = action.payload.company
+                    job.location = action.payload.location
                     // job.contract_time = action.payload.contract_time
-                    job.category.label = action.payload.label
+                    job.category = action.payload.category
                     job.title = action.payload.title
                     job.description = action.payload.description
                 }
             })
             state.jobEdit.edit = false
 
-            editJobListing(state.jobEdit).then(() => {
+            editJobListing(action.payload).then(() => {
             })
         },
         setFavorites: (state, action) => {
