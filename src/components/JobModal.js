@@ -15,9 +15,8 @@ const JobModal = () => {
         title: "",
         description: "",
         label: "",
-        location: "",
+        location: ""
     })
-
 
     useEffect(() => {
         if (jobEdit.edit === true) {

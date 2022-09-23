@@ -5,12 +5,10 @@ import {useDispatch, useSelector} from "react-redux"
 import {FiBookmark, FiEdit, FiTrash} from "react-icons/fi"
 import './Jobs.css'
 import JobModal from "./JobModal"
-import {isJobSeeker, isLoggedIn, isRecruiter} from "../services/auth";
+import {isJobSeeker, isLoggedIn, isRecruiter} from "../services/auth"
 
 const Jobs = ({filteredJobs}) => {
     const dispatch = useDispatch()
-    // const {setShow} = useContext(ModalContext)
-
     const favs = useSelector(state => state.favouriteJobs)
 
     const applyForJob = (job) => {

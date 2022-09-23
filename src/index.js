@@ -6,16 +6,19 @@ import App from "./App"
 import reportWebVitals from './reportWebVitals'
 import {ModalProvider} from "./context/ModalContext"
 import {Provider} from "react-redux"
+import {LoadingProvider} from "./context/LoadingContext/LoadingContext";
 import {store} from "./redux/store"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <ModalProvider>
-                <App/>
-            </ModalProvider>
-        </Provider>
+        <LoadingProvider>
+            <Provider store={store}>
+                <ModalProvider>
+                    <App/>
+                </ModalProvider>
+            </Provider>
+        </LoadingProvider>
     </React.StrictMode>
 );
 

@@ -1,12 +1,12 @@
 import Header from "../components/Header";
-import {FiTag, FiMapPin, FiClock, FiTrash, FiEdit, FiBookmark} from "react-icons/fi";
-import React, {useEffect} from "react";
+import {FiTag, FiMapPin} from "react-icons/fi";
+import React from "react";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
-import { Circles } from 'react-loading-icons'
+import {Loader} from "../components/Loader";
 
 
-const JobDetails = ({i}) => {
+const JobDetails = () => {
     const jobs = useSelector(state => state.jobs)
     console.log(jobs)
     const params = useParams()
@@ -21,7 +21,7 @@ const JobDetails = ({i}) => {
             <div className="container px-4 py-4">
                 <main className="container">
                     {job === undefined ?
-                        <div>Loading data...</div>
+                        <Loader/>
                         :
                         <div className="row g-5">
                             <div className="col-md-8">
@@ -56,18 +56,6 @@ const JobDetails = ({i}) => {
                                             <span className='m-1 cursor-pointer color-theme'><FiTag/></span>
                                             <span className='m-1 fw-semibold'><p>{job.category.label}</p></span>
                                         </div>
-                                        {/*<div className="d-flex mb-3">*/}
-                                        {/*    <span className="m-1 cursor-pointer color-theme"><FiClock/></span>*/}
-                                        {/*    <h6 className='text-black'>{job.contract_time}</h6>*/}
-                                        {/*</div>*/}
-                                        {/*<hr className='w-75'/>*/}
-                                        {/*<div className="d-flex mb-3">*/}
-                                        {/*    <span className="m-1 cursor-pointer color-theme"><FiLink/></span>*/}
-                                        {/*    <a target="_blank" rel='noreferrer'*/}
-                                        {/*       href="">View more</a>*/}
-                                        {/*</div>*/}
-                                        {/*<hr className='w-75'/>*/}
-
                                     </div>
                                 </div>
                             </div>

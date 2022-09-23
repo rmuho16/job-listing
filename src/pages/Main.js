@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react"
+import React, {useState} from "react"
 import '../App.css'
 import Header from "../components/Header"
 import AddButton from "../components/AddButton"
 import SearchInput from "../components/SearchInput"
 import Jobs from "../components/Jobs"
-import {useDispatch, useSelector} from "react-redux"
+import {useSelector} from "react-redux"
 import Pagination from "../components/Pagination"
-import {isRecruiter} from "../services/auth";
+import {isRecruiter} from "../services/auth"
 
 const Main = () => {
     const jobs = useSelector(state => state.jobs)
@@ -40,11 +40,11 @@ const Main = () => {
             <Header/>
             <div className="py-5">
                 <div className="container">
-                    {isRecruiter() ? <AddButton/> : <div></div>}
+                    {isRecruiter() && <AddButton/>}
                     <SearchInput searchText={searchText} setSearchText={setSearchText}/>
                     {jobs ?
                         <Jobs filteredJobs={currentJobs} searchText={searchText}/>
-                        : "Sorry, no jobs available"
+                        : <h3 className='text-center'>Sorry, no jobs available</h3>
                     }
                     {jobs &&
                     <Pagination jobsPerPage={jobsPerPage} totalJobs={filteredJobs.length} paginate={paginate}

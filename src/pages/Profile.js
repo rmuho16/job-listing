@@ -28,7 +28,7 @@ const Profile = () => {
                         </tbody>
                     </Table>
                 </div>
-                { isJobSeeker() ?
+                { isJobSeeker() &&
                 <Tabs
                     defaultActiveKey="Favourites"
                     id="uncontrolled-tab-example"
@@ -43,7 +43,7 @@ const Profile = () => {
                             <AppliedJobs/>
                         </div>
                     </Tab>
-                </Tabs> : <div></div> }
+                </Tabs> }
             </div>
         </>
     )

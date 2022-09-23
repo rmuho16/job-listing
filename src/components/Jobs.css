@@ -1,4 +1,10 @@
 
+@media (min-width: 250px) and (max-width: 459px) {
+    .cardWidth{
+        min-width: 400px;
+    }
+}
+
 @media (min-width: 460px) and (max-width: 575px) {
   .cardWidth{
       min-width: 452px;
