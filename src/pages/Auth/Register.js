@@ -1,11 +1,13 @@
 import {Link} from "react-router-dom";
 import './Login/Login.css'
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 import {register} from "../../services/auth";
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
+import {LoadingContext} from "../../context/LoadingContext/LoadingContext";
 
 const Login = () => {
     const navigate = useNavigate();
+    const {loading, setIsLoading, setIsNotLoading} = useContext(LoadingContext)
 
     const [state, setState] = useState({
         email: '',
@@ -23,8 +25,17 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        if (state.password.length < 6) {
+        setIsLoading()
+        if(!state.email || !state.password){
+            setIsNotLoading()
+            setState({
+                email: state.email,
+                password: '',
+                error: "Please fill in all input fields",
+            })
+        }
+        else if (state.password.length < 6) {
+            setIsNotLoading()
             setState({
                 email: state.email,
                 password: state.password,
@@ -35,8 +46,10 @@ const Login = () => {
             register(state.email, state.password, state.type)
                 .then((result) => {
                     if (result) {
+                        setIsNotLoading()
                         navigate("/")
                     } else {
+                        setIsNotLoading()
                         setState({
                             email: state.email,
                             password: '',
@@ -49,7 +62,7 @@ const Login = () => {
 
     function onTypeSelect(event) {
         state.type = event.target.value
-        console.log(event.target.value)
+        // console.log(event.target.value)
     }
 
     return (
@@ -80,16 +93,25 @@ const Login = () => {
                 </div>
 
                 <div onChange={onTypeSelect}>
-                    <input type="radio" value="jobSeeker" name="type" className="mb-3" defaultChecked={true}/> Job Seeker
+                    <input type="radio" value="jobSeeker" name="type" className="mb-3" defaultChecked={true}/> Job
+                    Seeker
                     <br/>
-                    <input type="radio" value="recruiter" name="type" /> Recruiter
+                    <input type="radio" value="recruiter" name="type"/> Recruiter
                 </div>
 
-                {state.error && <p className="text-danger">{state.error}</p>}
+                {state.error && <p className="text-danger text-center">{state.error}</p>}
 
-                <button className="w-100 bg-theme text-white mt-4 px-5 border-0 py-3 my-2 fw-semibold rounded-0"
-                        type="submit">Sign up
-                </button>
+                {
+                    loading ?
+                        <button className="w-100 bg-theme text-white px-5 border-0 rounded-0 py-3 my-2 fw-semibold"
+                                type="submit" disabled={true}>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
+                        </button>
+                        :
+                        <button className="w-100 bg-theme text-white mt-4 px-5 border-0 py-3 my-2 fw-semibold rounded-0"
+                                type="submit">Sign up
+                        </button>
+                }
                 <small className='fw-semibold text-muted mt-3 '>Already a user?
                     <Link to='/login'> Log in</Link>
                 </small>
